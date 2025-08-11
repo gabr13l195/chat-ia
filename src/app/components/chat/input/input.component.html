@@ -1,0 +1,61 @@
+<div class="input-container">
+  <!-- Image Preview -->
+  <div class="image-preview" *ngIf="imagePreview">
+    <div class="preview-container">
+      <img [src]="imagePreview" alt="Vista previa" class="preview-image" />
+      <button class="remove-image" (click)="removeImage()" type="button">
+        <span>×</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Input Area -->
+  <div class="input-area" 
+       [ngClass]="{'dragging': isDragging}"
+       (dragover)="onDragOver($event)"
+       (dragleave)="onDragLeave($event)"
+       (drop)="onDrop($event)">
+    
+    <div class="input-wrapper">
+      <textarea
+        [(ngModel)]="messageText"
+        (keypress)="onKeyPress($event)"
+        placeholder="Escribe tu mensaje aquí..."
+        class="message-input"
+        rows="1"
+        #messageTextarea>
+      </textarea>
+      
+      <div class="input-actions">
+        <label class="file-input-label" for="image-upload">
+          <span class="upload-icon">📷</span>
+          <input
+            id="image-upload"
+            type="file"
+            accept="image/*"
+            (change)="onFileSelected($event)"
+            class="file-input"
+            hidden>
+        </label>
+        
+        <button 
+          type="button"
+          class="send-button"
+          [disabled]="!messageText.trim() && !selectedImage"
+          (click)="onSendMessage()">
+          <span class="send-icon">➤</span>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Drag & Drop Hint -->
+    <div class="drag-hint" *ngIf="isDragging">
+      <span>¡Suelta la imagen aquí!</span>
+    </div>
+  </div>
+  
+  <!-- Help Text -->
+  <div class="help-text">
+    <span>💡 Puedes arrastrar y soltar imágenes aquí o hacer clic en el botón de cámara</span>
+  </div>
+</div>

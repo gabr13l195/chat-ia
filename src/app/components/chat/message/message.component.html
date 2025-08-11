@@ -1,0 +1,26 @@
+<div class="message-container" [ngClass]="{'user-message': isUser, 'bot-message': isBot}">
+  <div class="message-content">
+    <div class="message-header">
+      <div class="avatar" [ngClass]="{'user-avatar': isUser, 'bot-avatar': isBot}">
+        <span class="avatar-text">{{ isUser ? '👤' : '🤖' }}</span>
+      </div>
+      <div class="message-info">
+        <span class="sender-name">{{ isUser ? 'Tú' : 'Asistente Virtual' }}</span>
+        <span class="timestamp">{{ formattedTime }}</span>
+      </div>
+    </div>
+    
+    <div class="message-body">
+      <ng-container *ngIf="isImage; else textMessage">
+        <div class="image-container">
+          <img [src]="message.imageUrl" alt="Imagen enviada" class="message-image" />
+          <div class="image-caption">{{ message.content }}</div>
+        </div>
+      </ng-container>
+      
+      <ng-template #textMessage>
+        <p class="message-text">{{ message.content }}</p>
+      </ng-template>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="chat-container">
+  <div class="chat-header">
+    <div class="bot-info">
+      <div class="avatar bot-avatar">
+        <span class="avatar-text">💬</span>
+      </div>
+      <div class="bot-details">
+        <h3>Chat de Tienda</h3>
+        <p>Envía mensajes e imágenes</p>
+      </div>
+    </div>
+    <button class="clear-chat-btn" (click)="clearChat()">
+      <span>🗑️</span>
+      Limpiar
+    </button>
+  </div>
+
+  <div class="messages-container" #messagesContainer>
+    <div 
+      *ngFor="let message of messages" 
+      class="message-wrapper"
+    >
+      <app-message [message]="message"></app-message>
+    </div>
+  </div>
+
+  <app-input 
+    (messageSent)="onMessageSent($event)"
+    (imageSent)="onImageSent($event)"
+  ></app-input>
+</div>
