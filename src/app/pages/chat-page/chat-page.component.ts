@@ -10,5 +10,5 @@ import { ChatComponent } from '../../components/chat/chat.component';
   styleUrl: './chat-page.component.css'
 })
 export class ChatPageComponent {
-  // Este componente actúa como contenedor principal para el chat
+  // Componente principal del chat
 }

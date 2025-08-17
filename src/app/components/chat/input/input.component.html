@@ -9,6 +9,16 @@
     </div>
   </div>
 
+  <!-- Audio Preview -->
+  <div class="audio-preview" *ngIf="audioPreview">
+    <div class="preview-container">
+      <audio [src]="audioPreview" controls class="preview-audio"></audio>
+      <button class="remove-audio" (click)="removeAudio()" type="button">
+        <span>×</span>
+      </button>
+    </div>
+  </div>
+
   <!-- Input Area -->
   <div class="input-area" 
        [ngClass]="{'dragging': isDragging}"
@@ -27,21 +37,43 @@
       </textarea>
       
       <div class="input-actions">
+        <!-- Botón de imagen -->
         <label class="file-input-label" for="image-upload">
           <span class="upload-icon">📷</span>
           <input
             id="image-upload"
             type="file"
             accept="image/*"
-            (change)="onFileSelected($event)"
+            (change)="onFileSelected($event, 'image')"
             class="file-input"
             hidden>
         </label>
         
+        <!-- Botón de audio -->
+        <label class="file-input-label" for="audio-upload">
+          <span class="upload-icon">🎵</span>
+          <input
+            id="audio-upload"
+            type="file"
+            accept="audio/*"
+            (change)="onFileSelected($event, 'audio')"
+            class="file-input"
+            hidden>
+        </label>
+        
+        <!-- Botón de grabación -->
+        <button 
+          type="button"
+          class="record-button"
+          [ngClass]="{'recording': isRecording}"
+          (click)="isRecording ? stopRecording() : startRecording()">
+          <span class="record-icon">{{ isRecording ? '⏹️' : '🎤' }}</span>
+        </button>
+        
         <button 
           type="button"
           class="send-button"
-          [disabled]="!messageText.trim() && !selectedImage"
+          [disabled]="!messageText.trim() && !selectedImage && !selectedAudio"
           (click)="onSendMessage()">
           <span class="send-icon">➤</span>
         </button>
@@ -50,12 +82,12 @@
     
     <!-- Drag & Drop Hint -->
     <div class="drag-hint" *ngIf="isDragging">
-      <span>¡Suelta la imagen aquí!</span>
+      <span>¡Suelta la imagen o audio aquí!</span>
     </div>
   </div>
   
   <!-- Help Text -->
   <div class="help-text">
-    <span>💡 Puedes arrastrar y soltar imágenes aquí o hacer clic en el botón de cámara</span>
+    <span>💡 Puedes arrastrar y soltar imágenes/audio aquí, grabar audio con el micrófono, o usar los botones de archivo</span>
   </div>
 </div>

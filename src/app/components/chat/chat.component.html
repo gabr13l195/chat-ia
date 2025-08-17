@@ -2,11 +2,11 @@
   <div class="chat-header">
     <div class="bot-info">
       <div class="avatar bot-avatar">
-        <span class="avatar-text">💬</span>
+        <span class="avatar-text">🤖</span>
       </div>
       <div class="bot-details">
-        <h3>Chat de Tienda</h3>
-        <p>Envía mensajes e imágenes</p>
+        <h3>Asistente IA</h3>
+        <p>Envía mensajes, imágenes y audio</p>
       </div>
     </div>
     <button class="clear-chat-btn" (click)="clearChat()">
@@ -22,10 +22,14 @@
     >
       <app-message [message]="message"></app-message>
     </div>
+    
+    <!-- Indicador de escritura -->
+    <app-typing *ngIf="isTyping"></app-typing>
   </div>
 
   <app-input 
     (messageSent)="onMessageSent($event)"
     (imageSent)="onImageSent($event)"
+    (audioSent)="onAudioSent($event)"
   ></app-input>
 </div>

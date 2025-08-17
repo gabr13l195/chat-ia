@@ -24,6 +24,10 @@ export class MessageComponent {
     return this.message.messageType === 'image';
   }
 
+  get isAudio(): boolean {
+    return this.message.messageType === 'audio';
+  }
+
   get formattedTime(): string {
     return this.message.timestamp.toLocaleTimeString('es-ES', {
       hour: '2-digit',
